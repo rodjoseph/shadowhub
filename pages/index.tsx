@@ -23,7 +23,6 @@ export default function Index() {
   const [inputError, setInputError] = React.useState(false);
   const checkUrl = () => {
     setUrlValid(ReactPlayer.canPlay(url));
-    if (!urlValid) setInputError(true);
     console.debug((urlValid ? "Can play " : "Cannot play ") + url);
   };
 
@@ -56,7 +55,7 @@ export default function Index() {
             placeholder="Enter URL"
             error={inputError}
           />
-          {!urlValid ? <ShadowSection url={url} /> : <></>}
+          {urlValid ? <ShadowSection url={url} /> : <></>}
           <ProTip />
           <Copyright />
         </Box>

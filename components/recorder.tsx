@@ -7,10 +7,11 @@ export interface RecorderProps {
 }
 
 export default function Recorder(props: RecorderProps) {
-  return;
-  <>
-    <CardContent>
-      <Typography>hi</Typography>
-    </CardContent>
-  </>;
+  return (
+    <>
+      <CardContent>
+        <Typography>hi</Typography>
+      </CardContent>
+    </>
+  );
 }
