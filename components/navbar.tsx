@@ -6,12 +6,12 @@ import {
   Toolbar,
   Typography,
   Link as MuiLink,
-  Button
+  Button,
+  Avatar
 } from "@material-ui/core";
 import { AccountCircle, Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import * as React from "react";
-import InfoIcon from "@material-ui/icons/Info";
 import { Auth } from "@supabase/ui";
 
 export default function Navbar() {
@@ -59,7 +59,7 @@ export default function Navbar() {
               onClick={handleMenu}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar sizes="sm" />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -87,7 +87,7 @@ export default function Navbar() {
         ) : (
           <>
             <Link href="/login" passHref><Button color="inherit" variant="outlined">Login</Button></Link>
-            <Link href="/signup" passHref><Button color="inherit" variant="outlined">Signup</Button></Link>
+            <Link href="/signup" passHref><Button color="inherit" variant="outlined">Signup</Button></Link> 
           </>
         )}
       </Toolbar>

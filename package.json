@@ -22,7 +22,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "update-types": "npx openapi-typescript https://xhbuwefprqgwmxelejoe.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyNzM5OTY1NiwiZXhwIjoxOTQyOTc1NjU2fQ.HKDNF2FEPUOZw_3gSQl49iLomfv2PzYcQkh-uctaftA --output types/supabase.ts"
   },
   "devDependencies": {
     "@types/node": "latest",

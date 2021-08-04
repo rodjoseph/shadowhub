@@ -1,17 +1,8 @@
 import * as React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
 import Layout from '../components/layout';
+import { supabase } from '../constants/supabaseClient';
+import { Avatar, Box, Button, Container, CssBaseline, Grid, Link, TextField, Typography } from '@material-ui/core';
 
 function Copyright(props: any) {
   return (
@@ -37,10 +28,25 @@ export default function SignUp() {
     });
   };
 
-  const [email, setEmail] = React.useState<string>()
-  const [password, setPassword] = React.useState<string>()
-  const [passwordConfirmation, setPasswordConfirmation] = React.useState<string>()
+  const [email, setEmail] = React.useState<string>("")
+  const [password, setPassword] = React.useState<string>("")
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState<string>("")
+  const [readyToSignup, setReadyToSignup] = React.useState(false)
 
+  function validateEmail(email: string) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  function validatePassword(password: string) {
+    const re =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    return re.test(String(password).toLowerCase());
+  }
+
+  function checkReadyToSignup() {
+    console.debug({email, password, passwordConfirmation})
+    setReadyToSignup(validateEmail(email) && validatePassword(password) && (password == passwordConfirmation))
+  }
   return (
     <Layout>
     <Container component="main" maxWidth="xs">
@@ -70,7 +76,10 @@ export default function SignUp() {
                 name="email"
                 autoComplete="email"
                 value={email}
-                onChange={(event: object) => setEmail(event.target.value)}                       
+                onChange={(e: any) => {
+                  setEmail(e.target.value)
+                  checkReadyToSignup()
+                }}                    
               />
             </Grid>
             <Grid item xs={12}>
@@ -83,7 +92,10 @@ export default function SignUp() {
                 id="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={(event : object) => setPassword(event.target.value)}
+                onChange={(e: any) => {
+                  setPassword(e.target.value)
+                  checkReadyToSignup()
+                }}                    
               />
 
             </Grid>
@@ -97,13 +109,17 @@ export default function SignUp() {
                 id="confirm-password"
                 autoComplete="current-password"
                 value={passwordConfirmation}
-                onChange={(event : object) => setPasswordConfirmation(event.target.value)}
+                onChange={(e: any) => {
+                  setPasswordConfirmation(e.target.value)
+                  checkReadyToSignup()
+                }}      
               />
 
             </Grid>
 
           </Grid>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => supabase.auth.signUp({email: email, password: password})} 
+          disabled={!readyToSignup}>
             Sign Up
           </Button>
           <Grid container justifyContent="flex-end">

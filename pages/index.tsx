@@ -1,21 +1,13 @@
 import * as React from "react";
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import ProTip from "../src/ProTip";
 import Link from "../src/Link";
 import Copyright from "../src/Copyright";
 import Layout from "../components/layout";
-import {
-  Card,
-  CardContent,
-  Icon,
-  InputAdornment,
-  TextField
-} from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
 import ReactPlayer from "react-player";
 import ShadowSection from "../components/shadowsection";
+import { Container, InputAdornment, TextField, Typography } from "@material-ui/core";
 
 export default function Index() {
   const [url, setUrl] = React.useState<string>("");
