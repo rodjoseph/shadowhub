@@ -15,7 +15,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-player": "2.9.0"
+    "react-player": "2.9.0",
+    "tailwindcss": "^2.2.7"
   },
   "scripts": {
     "dev": "next",

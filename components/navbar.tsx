@@ -12,14 +12,11 @@ import { AccountCircle, Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import * as React from "react";
 import InfoIcon from "@material-ui/icons/Info";
+import { Auth } from "@supabase/ui";
 
 export default function Navbar() {
-  const [auth, setAuth] = React.useState(true);
+  const { user } = Auth.useUser();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,9 +45,11 @@ export default function Navbar() {
           {/* <IconButton>
             <InfoIcon />
           </IconButton> */}
-          <Button>About</Button>
+          <Button color="inherit">
+            About
+          </Button>
         </Link>
-        {auth ? (
+        {user ? (
           <div>
             <IconButton
               size="large"
@@ -77,14 +76,18 @@ export default function Navbar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <Link href="/profile" passHref>
+                <MenuItem>Profile</MenuItem>
+              </Link>
+              <Link href="/account" passHref>
+                <MenuItem>My account</MenuItem>
+              </Link>
             </Menu>
           </div>
         ) : (
           <>
-            <Button>Login</Button>
-            <Button>Signup</Button>
+            <Link href="/login" passHref><Button color="inherit" variant="outlined">Login</Button></Link>
+            <Link href="/signup" passHref><Button color="inherit" variant="outlined">Signup</Button></Link>
           </>
         )}
       </Toolbar>
