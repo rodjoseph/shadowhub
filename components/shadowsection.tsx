@@ -25,8 +25,8 @@ export default function ShadowSection(props: { url: string }) {
     setPlaying(false);
   };
   const shadow = () => {
-    setRecorderVisible(true);
-    setShadowing(true);
+    setRecorderVisible(!recorderVisible);
+    setShadowing(!shadowing);
   };
   const stop = () => {};
 

@@ -4,11 +4,14 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Typography
+  Typography,
+  Link as MuiLink,
+  Button
 } from "@material-ui/core";
 import { AccountCircle, Menu as MenuIcon } from "@material-ui/icons";
 import Link from "next/link";
 import * as React from "react";
+import InfoIcon from "@material-ui/icons/Info";
 
 export default function Navbar() {
   const [auth, setAuth] = React.useState(true);
@@ -27,7 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <AppBar position="sticky" variant="outlined">
+    <AppBar position="sticky" variant="outlined" elevation={0}>
       <Toolbar>
         <IconButton
           size="medium"
@@ -41,10 +44,13 @@ export default function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Shadowing
         </Typography>
-        <Link href="/about">
-          <Typography>About</Typography>
+        <Link href="/about" passHref>
+          {/* <IconButton>
+            <InfoIcon />
+          </IconButton> */}
+          <Button>About</Button>
         </Link>
-        {auth && (
+        {auth ? (
           <div>
             <IconButton
               size="large"
@@ -75,6 +81,11 @@ export default function Navbar() {
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Menu>
           </div>
+        ) : (
+          <>
+            <Button>Login</Button>
+            <Button>Signup</Button>
+          </>
         )}
       </Toolbar>
     </AppBar>
